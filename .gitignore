@@ -1,0 +1,3 @@
+# ignore google client secrets
+sheets.googleapis.com-python.json
+client_secret.json

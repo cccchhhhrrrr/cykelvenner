@@ -41,12 +41,15 @@ time.sleep(10)
 debug_output("Response OK!")
 
 # Close cookies pop-up
-ok_til_cookies = driver.find_element(By.ID, 'onetrust-accept-btn-handler')
-time.sleep(5)
-ok_til_cookies.click()
-time.sleep(10)
-debug_output("Cookies pop-up clicked")
-#print()
+try:
+    ok_til_cookies = driver.find_element(By.ID, 'didomi-notice-agree-button')
+    time.sleep(5)
+    ok_til_cookies.click()
+    time.sleep(5)
+    debug_output("Cookies pop-up clicked!")
+except:
+    time.sleep(10)
+    debug_output("Cookies pop-up not found. Continuing...")
 
 # Expand the list of riders until all riders are shown
 more_riders_to_get = True
