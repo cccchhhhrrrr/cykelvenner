@@ -1,4 +1,3 @@
-
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -35,7 +34,7 @@ driver = webdriver.Chrome(service=s, options=chrome_options)
 debug_output("Options have been set!")
 
 # Get the response
-url = "https://www.feltet.dk/manager/saesonspil_2022_uden_kaptajner/statistics/"
+url = "https://www.feltet.dk/manager/saesonspil_2023_med_kaptajn/statistics/"
 driver.get(url)
 time.sleep(10)
 debug_output("Response OK!")
@@ -115,14 +114,11 @@ for row in table.tbody.find_all("tr"):
 driver.close()
 
 # Upload results to Google Sheets / SQLiteDB
-gc = pygsheets.authorize()
-sh = gc.open_by_key('1QwYUyU-ApdO-_jjHwhwO2coh9z7m0LWWvCjNOCKowKg')
-wks_write = sh.worksheet_by_title('riders_points_2023')
-wks_write.clear('B1', None, '*')
-wks_write.set_dataframe(riders_points, (1, 2), encoding = 'utf-8', fit=True)
 
 # Save results to text file to track points over time
-riders_points.to_csv(r'/home/ubuntu/riders_points.csv', header=None, index=None, sep=',', quoting=csv.QUOTE_ALL, mode='a')
+riders_points.to_csv(r'/var/www/html/cykelvenner.dk/public_html/riders_points.csv', header=None, index=None, sep=',', quoting=csv.QUOTE_ALL, mode='w')
+
+#riders_points.to_csv(r'/var/www/html/cykelvenner.dk/public_html/riders_points_history.csv', header=None, index=None, sep=',', quoting=csv.QUOTE_ALL, mode='a')
 
 # Print results
 #print()
